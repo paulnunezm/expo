@@ -788,3 +788,378 @@ debug 2024/04/16 02:16:01 timer starting
 debug 2024/04/16 02:16:01 timer started
 debug 2024/04/16 02:16:02 Timer ticking
 debug 2024/04/16 02:16:02 Timer ticking
+debug 2024/04/16 11:58:49 enter clicked/ can start = false
+debug 2024/04/16 11:58:49 handle text input
+debug 2024/04/16 11:58:52 enter clicked/ can start = true
+debug 2024/04/16 11:58:52 Trying to start/pause the timmer
+debug 2024/04/16 11:58:53 Timer ticking
+debug 2024/04/16 11:58:54 Timer ticking
+debug 2024/04/16 11:58:54 timer starting
+debug 2024/04/16 11:58:54 timer started
+debug 2024/04/16 11:58:55 Timer ticking
+debug 2024/04/16 11:58:55 Timer ticking
+debug 2024/04/16 11:59:35 enter clicked/ can start = true
+debug 2024/04/16 11:59:35 Trying to start/pause the timmer
+debug 2024/04/16 11:59:35 timer starting
+debug 2024/04/16 11:59:35 timer started
+debug 2024/04/16 11:59:36 Timer ticking
+debug 2024/04/16 11:59:37 Timer ticking
+debug 2024/04/16 11:59:37 timer starting
+debug 2024/04/16 11:59:37 timer started
+debug 2024/04/16 11:59:38 Timer ticking
+debug 2024/04/16 11:59:38 Timer ticking
+debug 2024/04/16 11:59:45 enter clicked/ can start = true
+debug 2024/04/16 11:59:45 Trying to start/pause the timmer
+debug 2024/04/16 11:59:45 timer starting
+debug 2024/04/16 11:59:45 timer started
+debug 2024/04/16 11:59:46 Timer ticking
+debug 2024/04/16 11:59:47 Timer ticking
+debug 2024/04/16 11:59:47 timer starting
+debug 2024/04/16 11:59:47 timer started
+debug 2024/04/16 11:59:48 Timer ticking
+debug 2024/04/16 11:59:48 Timer ticking
+debug 2024/04/16 12:02:37 enter clicked/ can start = false
+debug 2024/04/16 12:02:37 handle text input
+debug 2024/04/16 12:02:37 error converting 
+debug 2024/04/16 12:02:42 enter clicked/ can start = false
+debug 2024/04/16 12:02:42 handle text input
+debug 2024/04/16 12:02:42 error converting 
+debug 2024/04/16 12:02:46 enter clicked/ can start = false
+debug 2024/04/16 12:02:46 handle text input
+debug 2024/04/16 12:02:47 enter clicked/ can start = true
+debug 2024/04/16 12:02:47 Trying to start/pause the timmer
+debug 2024/04/16 12:02:48 Timer ticking
+debug 2024/04/16 12:02:49 Timer ticking
+debug 2024/04/16 12:02:49 timer starting
+debug 2024/04/16 12:02:49 timer started
+debug 2024/04/16 12:02:50 Timer ticking
+debug 2024/04/16 12:02:50 Timer ticking
+debug 2024/04/16 12:02:51 enter clicked/ can start = true
+debug 2024/04/16 12:02:51 Trying to start/pause the timmer
+debug 2024/04/16 12:02:51 timer starting
+debug 2024/04/16 12:02:51 timer started
+debug 2024/04/16 12:02:52 Timer ticking
+debug 2024/04/16 12:02:53 Timer ticking
+debug 2024/04/16 12:02:53 timer starting
+debug 2024/04/16 12:02:53 timer started
+debug 2024/04/16 12:02:54 Timer ticking
+debug 2024/04/16 12:02:54 Timer ticking
+debug 2024/04/16 12:05:24 enter clicked/ can start = false
+debug 2024/04/16 12:05:24 handle text input
+debug 2024/04/16 12:05:25 enter clicked/ can start = true
+debug 2024/04/16 12:05:25 Trying to start/pause the timmer
+debug 2024/04/16 12:05:26 Timer ticking
+debug 2024/04/16 12:05:27 Timer ticking
+debug 2024/04/16 12:05:27 timer starting
+debug 2024/04/16 12:05:27 timer started
+debug 2024/04/16 12:05:28 Timer ticking
+debug 2024/04/16 12:05:28 Timer ticking
+debug 2024/04/16 12:05:34 enter clicked/ can start = true
+debug 2024/04/16 12:05:34 Trying to start/pause the timmer
+debug 2024/04/16 12:05:34 timer starting
+debug 2024/04/16 12:05:34 timer started
+debug 2024/04/16 12:05:35 Timer ticking
+debug 2024/04/16 12:05:36 Timer ticking
+debug 2024/04/16 12:05:36 timer starting
+debug 2024/04/16 12:05:36 timer started
+debug 2024/04/16 12:05:37 Timer ticking
+debug 2024/04/16 12:05:37 Timer ticking
+debug 2024/04/16 12:06:54 enter clicked/ can start = false
+debug 2024/04/16 12:06:54 handle text input
+debug 2024/04/16 12:06:55 enter clicked/ can start = true
+debug 2024/04/16 12:06:55 Trying to start/pause the timmer
+debug 2024/04/16 12:06:56 Timer ticking
+debug 2024/04/16 12:06:57 Timer ticking
+debug 2024/04/16 12:06:57 timer starting
+debug 2024/04/16 12:06:57 timer started
+debug 2024/04/16 12:06:58 Timer ticking
+debug 2024/04/16 12:06:58 Timer ticking
+debug 2024/04/16 12:09:17 enter clicked/ can start = false
+debug 2024/04/16 12:09:17 handle text input
+debug 2024/04/16 12:09:18 enter clicked/ can start = true
+debug 2024/04/16 12:09:18 Trying to start/pause the timmer
+debug 2024/04/16 12:09:19 Timer ticking
+debug 2024/04/16 12:09:20 Timer ticking
+debug 2024/04/16 12:09:21 timer starting
+debug 2024/04/16 12:09:21 timer started
+debug 2024/04/16 12:09:21 Timer ticking
+debug 2024/04/16 12:09:22 Timer ticking
+debug 2024/04/16 12:09:26 enter clicked/ can start = true
+debug 2024/04/16 12:09:26 Trying to start/pause the timmer
+debug 2024/04/16 12:09:26 timer starting
+debug 2024/04/16 12:09:26 timer started
+debug 2024/04/16 12:09:27 enter clicked/ can start = true
+debug 2024/04/16 12:09:27 Trying to start/pause the timmer
+debug 2024/04/16 12:09:27 timer starting
+debug 2024/04/16 12:09:27 timer started
+debug 2024/04/16 12:09:27 Timer ticking
+debug 2024/04/16 12:09:28 Timer ticking
+debug 2024/04/16 12:11:36 enter clicked/ can start = false
+debug 2024/04/16 12:11:36 handle text input
+debug 2024/04/16 12:11:37 enter clicked/ can start = true
+debug 2024/04/16 12:11:37 Trying to start/pause the timmer
+debug 2024/04/16 12:11:38 Timer ticking
+debug 2024/04/16 12:11:39 Timer ticking
+debug 2024/04/16 12:11:39 timer starting
+debug 2024/04/16 12:11:39 timer started
+debug 2024/04/16 12:11:40 Timer ticking
+debug 2024/04/16 12:11:40 Timer ticking
+debug 2024/04/16 12:12:21 enter clicked/ can start = false
+debug 2024/04/16 12:12:21 handle text input
+debug 2024/04/16 12:12:23 enter clicked/ can start = true
+debug 2024/04/16 12:12:23 Trying to start/pause the timmer
+debug 2024/04/16 12:12:24 Timer ticking
+debug 2024/04/16 12:12:25 Timer ticking
+debug 2024/04/16 12:12:25 timer starting
+debug 2024/04/16 12:12:25 timer started
+debug 2024/04/16 12:12:26 Timer ticking
+debug 2024/04/16 12:12:26 Timer ticking
+debug 2024/04/16 12:12:54 enter clicked/ can start = false
+debug 2024/04/16 12:12:54 handle text input
+debug 2024/04/16 12:12:55 enter clicked/ can start = true
+debug 2024/04/16 12:12:55 Trying to start/pause the timmer
+debug 2024/04/16 12:12:56 Timer ticking
+debug 2024/04/16 12:12:57 Timer ticking
+debug 2024/04/16 12:12:57 timer starting
+debug 2024/04/16 12:12:57 timer started
+debug 2024/04/16 12:12:58 Timer ticking
+debug 2024/04/16 12:12:58 Timer ticking
+debug 2024/04/16 12:13:39 enter clicked/ can start = false
+debug 2024/04/16 12:13:39 handle text input
+debug 2024/04/16 12:13:40 enter clicked/ can start = true
+debug 2024/04/16 12:13:40 Trying to start/pause the timmer
+debug 2024/04/16 12:13:41 Timer ticking
+debug 2024/04/16 12:13:42 Timer ticking
+debug 2024/04/16 12:13:42 timer starting
+debug 2024/04/16 12:13:42 timer started
+debug 2024/04/16 12:13:43 Timer ticking
+debug 2024/04/16 12:13:43 Timer ticking
+debug 2024/04/16 12:13:48 enter clicked/ can start = true
+debug 2024/04/16 12:13:48 Trying to start/pause the timmer
+debug 2024/04/16 12:13:48 timer starting
+debug 2024/04/16 12:13:48 timer started
+debug 2024/04/16 12:13:49 Timer ticking
+debug 2024/04/16 12:13:50 Timer ticking
+debug 2024/04/16 12:13:50 timer starting
+debug 2024/04/16 12:13:50 timer started
+debug 2024/04/16 12:13:51 Timer ticking
+debug 2024/04/16 12:13:51 Timer ticking
+debug 2024/04/16 12:16:20 enter clicked/ can start = false
+debug 2024/04/16 12:16:20 handle text input
+debug 2024/04/16 12:16:20 error converting 
+debug 2024/04/16 12:16:25 enter clicked/ can start = false
+debug 2024/04/16 12:16:25 handle text input
+debug 2024/04/16 12:16:26 enter clicked/ can start = true
+debug 2024/04/16 12:16:26 Trying to start/pause the timmer
+debug 2024/04/16 12:16:27 Timer ticking
+debug 2024/04/16 12:16:28 Timer ticking
+debug 2024/04/16 12:16:29 timer starting
+debug 2024/04/16 12:16:29 timer started
+debug 2024/04/16 12:16:29 Timer ticking
+debug 2024/04/16 12:16:30 Timer ticking
+debug 2024/04/16 12:24:47 enter clicked/ can start = false
+debug 2024/04/16 12:24:47 handle text input
+debug 2024/04/16 12:24:47 error converting 
+debug 2024/04/16 12:24:50 enter clicked/ can start = false
+debug 2024/04/16 12:24:50 handle text input
+debug 2024/04/16 12:24:51 enter clicked/ can start = true
+debug 2024/04/16 12:24:51 Trying to start/pause the timmer
+debug 2024/04/16 12:24:52 Timer ticking
+debug 2024/04/16 12:24:53 Timer ticking
+debug 2024/04/16 12:24:53 timer starting
+debug 2024/04/16 12:24:53 timer started
+debug 2024/04/16 12:24:54 Timer ticking
+debug 2024/04/16 12:24:54 Timer ticking
+debug 2024/04/16 12:25:14 enter clicked/ can start = false
+debug 2024/04/16 12:25:14 handle text input
+debug 2024/04/16 12:25:15 enter clicked/ can start = true
+debug 2024/04/16 12:25:15 Trying to start/pause the timmer
+debug 2024/04/16 12:25:16 Timer ticking
+debug 2024/04/16 12:25:17 Timer ticking
+debug 2024/04/16 12:25:17 timer starting
+debug 2024/04/16 12:25:17 timer started
+debug 2024/04/16 12:25:18 Timer ticking
+debug 2024/04/16 12:25:18 Timer ticking
+debug 2024/04/16 12:26:22 enter clicked/ can start = false
+debug 2024/04/16 12:26:22 handle text input
+debug 2024/04/16 12:26:22 error converting 
+debug 2024/04/16 12:26:25 enter clicked/ can start = false
+debug 2024/04/16 12:26:25 handle text input
+debug 2024/04/16 12:26:26 enter clicked/ can start = true
+debug 2024/04/16 12:26:26 Trying to start/pause the timmer
+debug 2024/04/16 12:26:27 Timer ticking
+debug 2024/04/16 12:26:28 Timer ticking
+debug 2024/04/16 12:26:28 timer starting
+debug 2024/04/16 12:26:28 timer started
+debug 2024/04/16 12:26:29 Timer ticking
+debug 2024/04/16 12:26:29 Timer ticking
+debug 2024/04/16 12:34:11 enter clicked/ can start = false
+debug 2024/04/16 12:34:11 handle text input
+debug 2024/04/16 12:34:12 enter clicked/ can start = true
+debug 2024/04/16 12:34:12 Trying to start/pause the timmer
+debug 2024/04/16 12:34:13 Timer ticking
+debug 2024/04/16 12:34:14 Timer ticking
+debug 2024/04/16 12:34:14 timer starting
+debug 2024/04/16 12:34:14 timer started
+debug 2024/04/16 12:34:15 Timer ticking
+debug 2024/04/16 12:34:15 Timer ticking
+debug 2024/04/16 12:34:19 enter clicked/ can start = true
+debug 2024/04/16 12:34:19 Trying to start/pause the timmer
+debug 2024/04/16 12:34:19 timer starting
+debug 2024/04/16 12:34:19 timer started
+debug 2024/04/16 12:34:20 Timer ticking
+debug 2024/04/16 12:34:21 Timer ticking
+debug 2024/04/16 12:34:21 timer starting
+debug 2024/04/16 12:34:21 timer started
+debug 2024/04/16 12:34:22 Timer ticking
+debug 2024/04/16 12:34:22 Timer ticking
+debug 2024/04/16 12:35:19 enter clicked/ can start = false
+debug 2024/04/16 12:35:19 handle text input
+debug 2024/04/16 12:35:20 enter clicked/ can start = true
+debug 2024/04/16 12:35:20 Trying to start/pause the timmer
+debug 2024/04/16 12:35:21 Timer ticking
+debug 2024/04/16 12:35:22 Timer ticking
+debug 2024/04/16 12:35:22 timer starting
+debug 2024/04/16 12:35:22 timer started
+debug 2024/04/16 12:35:23 Timer ticking
+debug 2024/04/16 12:35:23 Timer ticking
+debug 2024/04/16 12:44:23 enter clicked/ can start = false
+debug 2024/04/16 12:44:23 handle text input
+debug 2024/04/16 12:44:30 enter clicked/ can start = true
+debug 2024/04/16 12:44:30 Trying to start/pause the timmer
+debug 2024/04/16 12:44:31 Timer ticking
+debug 2024/04/16 12:44:32 Timer ticking
+debug 2024/04/16 12:44:32 timer starting
+debug 2024/04/16 12:44:32 timer started
+debug 2024/04/16 12:44:33 Timer ticking
+debug 2024/04/16 12:44:33 Timer ticking
+debug 2024/04/16 12:44:46 enter clicked/ can start = false
+debug 2024/04/16 12:44:46 handle text input
+debug 2024/04/16 12:44:49 enter clicked/ can start = true
+debug 2024/04/16 12:44:49 Trying to start/pause the timmer
+debug 2024/04/16 12:44:50 Timer ticking
+debug 2024/04/16 12:44:51 Timer ticking
+debug 2024/04/16 12:44:51 timer starting
+debug 2024/04/16 12:44:51 timer started
+debug 2024/04/16 12:44:52 Timer ticking
+debug 2024/04/16 12:44:52 Timer ticking
+debug 2024/04/16 12:44:59 enter clicked/ can start = true
+debug 2024/04/16 12:44:59 Trying to start/pause the timmer
+debug 2024/04/16 12:44:59 timer starting
+debug 2024/04/16 12:44:59 timer started
+debug 2024/04/16 12:45:00 Timer ticking
+debug 2024/04/16 12:45:01 Timer ticking
+debug 2024/04/16 12:45:01 timer starting
+debug 2024/04/16 12:45:01 timer started
+debug 2024/04/16 12:45:02 Timer ticking
+debug 2024/04/16 12:45:02 Timer ticking
+debug 2024/04/16 12:45:05 enter clicked/ can start = true
+debug 2024/04/16 12:45:05 Trying to start/pause the timmer
+debug 2024/04/16 12:45:05 timer starting
+debug 2024/04/16 12:45:05 timer started
+debug 2024/04/16 12:45:06 Timer ticking
+debug 2024/04/16 12:45:07 Timer ticking
+debug 2024/04/16 12:45:07 timer starting
+debug 2024/04/16 12:45:07 timer started
+debug 2024/04/16 12:45:08 Timer ticking
+debug 2024/04/16 12:45:08 Timer ticking
+debug 2024/04/16 12:46:00 enter clicked/ can start = false
+debug 2024/04/16 12:46:00 handle text input
+debug 2024/04/16 12:46:02 enter clicked/ can start = true
+debug 2024/04/16 12:46:02 Trying to start/pause the timmer
+debug 2024/04/16 12:46:03 Timer ticking
+debug 2024/04/16 12:46:04 Timer ticking
+debug 2024/04/16 12:46:04 timer starting
+debug 2024/04/16 12:46:04 timer started
+debug 2024/04/16 12:46:05 Timer ticking
+debug 2024/04/16 12:46:05 Timer ticking
+debug 2024/04/16 12:46:06 enter clicked/ can start = true
+debug 2024/04/16 12:46:06 Trying to start/pause the timmer
+debug 2024/04/16 12:46:06 timer starting
+debug 2024/04/16 12:46:06 timer started
+debug 2024/04/16 12:46:07 Timer ticking
+debug 2024/04/16 12:46:08 Timer ticking
+debug 2024/04/16 12:46:08 timer starting
+debug 2024/04/16 12:46:08 timer started
+debug 2024/04/16 12:46:09 Timer ticking
+debug 2024/04/16 12:46:09 Timer ticking
+debug 2024/04/16 12:46:10 enter clicked/ can start = true
+debug 2024/04/16 12:46:10 Trying to start/pause the timmer
+debug 2024/04/16 12:46:10 timer starting
+debug 2024/04/16 12:46:10 timer started
+debug 2024/04/16 12:46:11 Timer ticking
+debug 2024/04/16 12:46:12 Timer ticking
+debug 2024/04/16 12:46:13 timer starting
+debug 2024/04/16 12:46:13 timer started
+debug 2024/04/16 12:46:13 Timer ticking
+debug 2024/04/16 12:46:14 Timer ticking
+debug 2024/04/16 12:46:26 enter clicked/ can start = true
+debug 2024/04/16 12:46:26 Trying to start/pause the timmer
+debug 2024/04/16 12:46:26 timer starting
+debug 2024/04/16 12:46:26 timer started
+debug 2024/04/16 12:46:27 Timer ticking
+debug 2024/04/16 12:46:27 enter clicked/ can start = true
+debug 2024/04/16 12:46:27 Trying to start/pause the timmer
+debug 2024/04/16 12:46:27 timer starting
+debug 2024/04/16 12:46:27 timer started
+debug 2024/04/16 12:46:28 Timer ticking
+debug 2024/04/16 12:46:28 Timer ticking
+debug 2024/04/16 12:46:34 enter clicked/ can start = true
+debug 2024/04/16 12:46:34 Trying to start/pause the timmer
+debug 2024/04/16 12:46:34 timer starting
+debug 2024/04/16 12:46:34 timer started
+debug 2024/04/16 12:46:35 Timer ticking
+debug 2024/04/16 12:46:35 timer starting
+debug 2024/04/16 12:46:35 timer started
+debug 2024/04/16 12:46:36 Timer ticking
+debug 2024/04/16 12:46:36 Timer ticking
+debug 2024/04/16 12:52:47 enter clicked/ can start = false
+debug 2024/04/16 12:52:47 handle text input
+debug 2024/04/16 12:52:51 enter clicked/ can start = true
+debug 2024/04/16 12:52:51 Trying to start/pause the timmer
+debug 2024/04/16 12:52:52 Timer ticking
+debug 2024/04/16 12:52:53 Timer ticking
+debug 2024/04/16 12:52:53 timer starting
+debug 2024/04/16 12:52:53 timer started
+debug 2024/04/16 12:52:54 Timer ticking
+debug 2024/04/16 12:52:54 Timer ticking
+debug 2024/04/16 12:53:40 enter clicked/ can start = false
+debug 2024/04/16 12:53:40 handle text input
+debug 2024/04/16 12:53:42 enter clicked/ can start = true
+debug 2024/04/16 12:53:42 Trying to start/pause the timmer
+debug 2024/04/16 12:53:43 Timer ticking
+debug 2024/04/16 12:53:44 Timer ticking
+debug 2024/04/16 12:53:44 timer starting
+debug 2024/04/16 12:53:44 timer started
+debug 2024/04/16 12:53:45 Timer ticking
+debug 2024/04/16 12:53:45 Timer ticking
+debug 2024/04/16 13:02:53 enter clicked/ can start = false
+debug 2024/04/16 13:02:53 handle text input
+debug 2024/04/16 13:02:57 enter clicked/ can start = true
+debug 2024/04/16 13:02:57 Trying to start/pause the timmer
+debug 2024/04/16 13:02:58 Timer ticking
+debug 2024/04/16 13:02:59 Timer ticking
+debug 2024/04/16 13:02:59 timer starting
+debug 2024/04/16 13:02:59 timer started
+debug 2024/04/16 13:03:00 Timer ticking
+debug 2024/04/16 13:03:00 Timer ticking
+debug 2024/04/16 13:03:17 enter clicked/ can start = false
+debug 2024/04/16 13:03:17 handle text input
+debug 2024/04/16 13:03:19 enter clicked/ can start = true
+debug 2024/04/16 13:03:19 Trying to start/pause the timmer
+debug 2024/04/16 13:03:20 Timer ticking
+debug 2024/04/16 13:03:21 Timer ticking
+debug 2024/04/16 13:03:21 timer starting
+debug 2024/04/16 13:03:21 timer started
+debug 2024/04/16 13:03:22 Timer ticking
+debug 2024/04/16 13:03:22 Timer ticking
+debug 2024/04/16 13:03:43 enter clicked/ can start = false
+debug 2024/04/16 13:03:43 handle text input
+debug 2024/04/16 13:03:43 enter clicked/ can start = true
+debug 2024/04/16 13:03:43 Trying to start/pause the timmer
+debug 2024/04/16 13:03:44 Timer ticking
+debug 2024/04/16 13:03:45 Timer ticking
+debug 2024/04/16 13:03:46 timer starting
+debug 2024/04/16 13:03:46 timer started
+debug 2024/04/16 13:03:46 Timer ticking
+debug 2024/04/16 13:03:47 Timer ticking

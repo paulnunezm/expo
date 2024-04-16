@@ -6,15 +6,19 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/0xAX/notificator"
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/timer"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/deckarep/gosx-notifier"
 )
 
 const pomodoroMinutes = 25
 
 // const timeout = time.Minute * 2 //pomodoroMinutes
 const timeout = time.Second * 2
+
+var notify *notificator.Notificator
 
 type model struct {
 	expected int
@@ -67,6 +71,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.canStart = true
 		m.timer.Timeout = timeout
 		cmd = m.timer.Stop()
+		notifyStopped()
 		return m, cmd
 
 	case tea.KeyMsg:
@@ -111,7 +116,7 @@ func (m model) View() string {
 		" <enter> to start or pause\n" +
 		" <s> to stop\n" +
 		" <q> or <crtl-c> to quit"
-	if m.hasStarted && m.timer.Running(){
+	if m.hasStarted && m.timer.Running() {
 		s += "========================RUNNING==============================\n"
 		s += " - Expected pomodoros: %d\n"
 		s += " - Actual pomodoros: %d\n"
@@ -119,7 +124,7 @@ func (m model) View() string {
 		s += "\n\n======================================================"
 		s += h
 		return fmt.Sprintf(s, m.expected, m.actual)
-	} else if m.hasStarted && !m.timer.Running(){
+	} else if m.hasStarted && !m.timer.Running() {
 		s += "========================PAUSED==============================\n"
 		s += " - Expected pomodoros: %d\n"
 		s += " - Actual pomodoros: %d\n"
@@ -148,17 +153,42 @@ func (m model) View() string {
 }
 
 func main() {
+	notify = notificator.New(notificator.Options{
+		DefaultIcon: "icon/default.png",
+		AppName:     "ExPom",
+	})
 
-	m := initModel()
 	f, err := tea.LogToFile("debug.log", "debug")
 	if err != nil {
 		log.Fatalf(`err:%w`, err)
 	}
 	defer f.Close()
-	p := tea.NewProgram(m, tea.WithAltScreen())
-	// p := tea.NewProgram(m)
+
+	p := tea.NewProgram(initModel(), tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		log.Fatal(err)
 	}
+}
 
+func notifyStopped() {
+
+	// THis is global
+	// notify.Push("OOO", "OOO", "", notificator.UR_NORMAL)
+
+
+	note := gosxnotifier.NewNotification("Check your Apple Stock!")
+
+	note.Title = "ExPomo"
+	note.Message = "🍅 Finished 🍅"
+	note.Sound = gosxnotifier.Funk
+	note.Sound = gosxnotifier.Hero 
+	note.Group = "com.expomo"
+	note.Sender = "com.apple.Safari" //Optionally, set a sender (Notification will now use the Safari icon)
+	note.AppIcon = "gopher.png"      //Optionally, an app icon (10.9+ ONLY)
+	note.ContentImage = "gopher.png" //Optionally, a content image (10.9+ ONLY)
+
+	err := note.Push()
+	if err != nil {
+		log.Println("Uh oh!")
+	}
 }
