@@ -18,6 +18,7 @@ const (
 	breakMinutes     = 5
 	longBreakMinutes = 20
 )
+const timeMultiplier = time.Second // For ease testing
 
 var notify *notificator.Notificator
 
@@ -53,7 +54,7 @@ func initModel() *model {
 		expected:          0,
 		actual:            0,
 		pomodoroTimerType: WorkPomodoro,
-		timer:             timer.NewWithInterval(time.Second*pomodoroMinutes, time.Second),
+		timer:             timer.NewWithInterval(timeMultiplier*pomodoroMinutes, time.Second),
 		textFieldInput:    textinput.New(),
 	}
 }
@@ -129,12 +130,13 @@ func handleTimerStoppedCmd(m model) (tea.Model, tea.Cmd) {
 	}
 	m.screenState = Stopped
 
-	timeout := time.Second * pomodoroMinutes
+	timeout := timeMultiplier
 	if m.pomodoroTimerType == WorkPomodoro {
 		m.pomodoroTimerType = BreakPomodoro
-		timeout = time.Second * breakMinutes
+		timeout *= breakMinutes
 	} else {
 		m.pomodoroTimerType = WorkPomodoro
+		timeout *= pomodoroMinutes
 	}
 
 	m.timer.Timeout = timeout // Resets the timer
@@ -278,10 +280,10 @@ func notifyStopped() {
 
 	note.Title = "ExPomo"
 	note.Message = "🍅 Finished 🍅"
-	note.Sound = gosxnotifier.Funk
+	// note.Sound = gosxnotifier.Funk
 	note.Sound = gosxnotifier.Hero
 	note.Group = "com.expomo"
-	note.Sender = "com.apple.Safari" //Optionally, set a sender (Notification will now use the Safari icon)
+	// note.Sender = "com.apple.Safari" //Optionally, set a sender (Notification will now use the Safari icon)
 	note.AppIcon = "gopher.png"      //Optionally, an app icon (10.9+ ONLY)
 	note.ContentImage = "gopher.png" //Optionally, a content image (10.9+ ONLY)
 
