@@ -10,44 +10,56 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/timer"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/deckarep/gosx-notifier"
+	gosxnotifier "github.com/deckarep/gosx-notifier"
 )
 
-const pomodoroMinutes = 25
-
-// const timeout = time.Minute * 2 //pomodoroMinutes
-const timeout = time.Second * 2
+const (
+	pomodoroMinutes  = 25
+	breakMinutes     = 5
+	longBreakMinutes = 20
+)
 
 var notify *notificator.Notificator
 
+type ScreenState int
+
+const (
+	Initial ScreenState = iota + 1
+	Entering
+	Running
+	Paused
+	Stopped
+)
+
+type PomodoroType int
+
+const (
+	WorkPomodoro PomodoroType = iota
+	BreakPomodoro
+)
+
 type model struct {
-	expected int
-	actual   int
-	timer    timer.Model
-
-	canStart   bool
-	hasStarted bool
-
-	expectedInput textinput.Model
+	screenState       ScreenState
+	expected          int
+	actual            int
+	pomodoroTimerType PomodoroType
+	timer             timer.Model
+	textFieldInput    textinput.Model
 }
 
 func initModel() *model {
-	inputField := textinput.New()
-	inputField.Placeholder = "Enter expected pomodoros"
-	inputField.Focus()
-
 	return &model{
-		expected:      0,
-		actual:        0,
-		timer:         timer.NewWithInterval(timeout, time.Second),
-		expectedInput: inputField,
-		canStart:      false,
-		hasStarted:    false,
+		screenState:       Initial,
+		expected:          0,
+		actual:            0,
+		pomodoroTimerType: WorkPomodoro,
+		timer:             timer.NewWithInterval(time.Second*pomodoroMinutes, time.Second),
+		textFieldInput:    textinput.New(),
 	}
 }
 
 func (m model) Init() tea.Cmd {
-	return textinput.Blink
+	return nil // textinput.Blink
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -56,23 +68,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 
 	case timer.TickMsg:
-		log.Print("Timer ticking")
 		m.timer, cmd = m.timer.Update(msg)
 		return m, cmd
 
 	case timer.StartStopMsg:
-		log.Print("timer starting")
 		m.timer, cmd = m.timer.Update(msg)
-		log.Print("timer started")
 		return m, cmd
 
 	case timer.TimeoutMsg:
-		m.actual++
-		m.canStart = true
-		m.timer.Timeout = timeout
-		cmd = m.timer.Stop()
-		notifyStopped()
-		return m, cmd
+		return handleTimerStoppedCmd(m)
 
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -80,75 +84,210 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "ctrl+c", "q":
 			return m, tea.Quit
 
+		case "s", "S":
+			return handleStartCmd(m)
+
+		case "e", "E":
+			m.screenState = Entering
+			m.textFieldInput.Focus()
+			return m, m.textFieldInput.Cursor.BlinkCmd()
+
+		case "b", "B":
+			return m, nil
+
+		case "p", "P":
+			return m, nil
+
+		case "r", "R":
+			return m, nil
+
 		case "enter":
-			log.Printf("enter clicked/ can start = %t", m.canStart)
-			if m.canStart {
-				log.Print("Trying to start/pause the timmer")
-				if m.hasStarted {
-					return m, m.timer.Toggle()
-				} else {
-					m.hasStarted = true
-					return m, m.timer.Init()
-				}
-			} else {
-				log.Print("handle text input")
-				num, err := strconv.Atoi(m.expectedInput.Value())
+			if m.screenState == Entering {
+				num, err := strconv.Atoi(m.textFieldInput.Value())
 				if err != nil {
-					log.Printf("error converting %s", m.expectedInput.Value())
+					log.Printf("error converting %s", m.textFieldInput.Value())
 					return m, tea.Quit
 				}
-				m.canStart = true
 				m.expected = num
-				m.expectedInput.Blur()
+
+				m.textFieldInput.Blur()
+				m.textFieldInput.Reset()
+				return handleStartCmd(m)
+			} else {
 				return m, nil
 			}
 		}
 	}
-	m.expectedInput, cmd = m.expectedInput.Update(msg)
+	m.textFieldInput, cmd = m.textFieldInput.Update(msg)
 
 	return m, cmd
 }
 
-func (m model) View() string {
-	s := "\n"
+func handleTimerStoppedCmd(m model) (tea.Model, tea.Cmd) {
+	if m.pomodoroTimerType == WorkPomodoro {
+		m.actual++
+	}
+	m.screenState = Stopped
 
-	h := "\n\n\n\nPress:\n" +
-		" <enter> to start or pause\n" +
-		" <s> to stop\n" +
-		" <q> or <crtl-c> to quit"
-	if m.hasStarted && m.timer.Running() {
-		s += "========================RUNNING==============================\n"
-		s += " - Expected pomodoros: %d\n"
-		s += " - Actual pomodoros: %d\n"
-		s += m.timer.View()
-		s += "\n\n======================================================"
-		s += h
-		return fmt.Sprintf(s, m.expected, m.actual)
-	} else if m.hasStarted && !m.timer.Running() {
-		s += "========================PAUSED==============================\n"
-		s += " - Expected pomodoros: %d\n"
-		s += " - Actual pomodoros: %d\n"
-		s += m.timer.View()
-		s += "\n\n======================================================"
-		s += h
-		return fmt.Sprintf(s, m.expected, m.actual)
-	} else if m.expected == 0 {
-		s += "======================================================\n"
-		s += "=====|| Enter the number of expected pomodoros ||=====\n"
-		s += "======================================================\n\n"
-
-		s += m.expectedInput.View()
-		s += "\n\n======================================================\n"
-		s += "\n\n"
-		s += h
-		return s
+	timeout := time.Second * pomodoroMinutes
+	if m.pomodoroTimerType == WorkPomodoro {
+		m.pomodoroTimerType = BreakPomodoro
+		timeout = time.Second * breakMinutes
 	} else {
-		s += "======================================================\n"
-		s += " - Expected pomodoros: %d\n"
-		s += " - Actual pomodoros: %d\n"
-		s += "\n\n======================================================"
-		s += h
-		return fmt.Sprintf(s, m.expected, m.actual)
+		m.pomodoroTimerType = WorkPomodoro
+	}
+
+	m.timer.Timeout = timeout // Resets the timer
+	notifyStopped()
+	return m, m.timer.Stop()
+}
+
+var wasTimerInitiated = false
+
+func handleStartCmd(m model) (tea.Model, tea.Cmd) {
+	switch m.screenState {
+	case Initial:
+		m.pomodoroTimerType = WorkPomodoro
+		m.screenState = Running
+		wasTimerInitiated = true
+		return m, m.timer.Init()
+
+	case Entering:
+		m.pomodoroTimerType = WorkPomodoro
+		m.screenState = Running
+		if wasTimerInitiated {
+			wasTimerInitiated = true
+			return m, m.timer.Toggle()
+		}
+		return m, m.timer.Init()
+
+	case Stopped:
+		return m, m.timer.Toggle()
+	}
+
+	return m, nil
+}
+
+func (m model) View() string {
+	s := ""
+	switch m.screenState {
+	case Initial:
+		s += renderInitialState(m)
+	case Paused:
+		s += renderPausedState(m)
+	case Running:
+		s += renderRunningState(m)
+	case Stopped:
+		s += renderStoppedState(m)
+	case Entering:
+		s += renderEnteringState(m)
+	}
+	return s
+}
+
+func getTitle(p PomodoroType) string {
+	title := ""
+	title += "---------------\n"
+	if p == WorkPomodoro {
+		title += "Pomodoro Timer"
+	} else {
+		title += "Take a Break"
+	}
+	title += "\n---------------\n\n"
+	return title
+}
+
+func getHelpText(s ScreenState) string {
+	t := "\n\n\n"
+	start := "[S]tart"
+	pause := "[P]ause"
+	reset := "[R]eset"
+	back := "[B]ack"
+	quit := "[Q]uit"
+	enter := "[Enter] to start"
+	goToEnter := "[E]nter expected"
+
+	switch s {
+	case Initial:
+		t += fmt.Sprintf("%s\n%s", start, goToEnter)
+	case Entering:
+		t += fmt.Sprintf("%s\n%s", back, enter)
+	case Running:
+		t += fmt.Sprintf("%s\n%s", pause, reset)
+	case Paused:
+		t += fmt.Sprintf("%s\n%s", start, reset)
+	case Stopped:
+		t += fmt.Sprintf("%s\n%s", start, goToEnter)
+	}
+	t += fmt.Sprintf("\n%s", quit)
+	return t
+}
+
+func renderRunningState(m model) string {
+	s := getTitle(m.pomodoroTimerType)
+	s += m.timer.View()
+	if m.expected != 0 {
+		a := "\n\nActual: %d\nExpected:%d"
+		s += fmt.Sprintf(a, m.actual, m.expected)
+	}
+	s += getHelpText(m.screenState)
+	return s
+}
+
+func renderPausedState(m model) string {
+	s := getTitle(m.pomodoroTimerType)
+	s += m.timer.View()
+	s += getHelpText(m.screenState)
+	return fmt.Sprintf(s, m.expected, m.actual)
+}
+
+func renderStoppedState(m model) string {
+	s := getTitle(m.pomodoroTimerType)
+	s += m.timer.View()
+	if m.expected != 0 {
+		a := "\n\nActual: %d\nExpected:%d"
+		s += fmt.Sprintf(a, m.actual, m.expected)
+	}
+	s += getHelpText(m.screenState)
+	return s
+}
+
+func renderEnteringState(m model) string {
+	m.textFieldInput.Placeholder = "4"
+
+	s := getTitle(m.pomodoroTimerType)
+	s += "Expected 🍅s "
+	s += m.textFieldInput.View()
+	s += getHelpText(m.screenState)
+	return s
+}
+
+func renderInitialState(m model) string {
+	s := getTitle(m.pomodoroTimerType)
+	s += "25:00"
+	s += getHelpText(m.screenState)
+	return s
+}
+
+func notifyStopped() {
+
+	// THis is global
+	// notify.Push("OOO", "OOO", "", notificator.UR_NORMAL)
+
+	note := gosxnotifier.NewNotification("Check your Apple Stock!")
+
+	note.Title = "ExPomo"
+	note.Message = "🍅 Finished 🍅"
+	note.Sound = gosxnotifier.Funk
+	note.Sound = gosxnotifier.Hero
+	note.Group = "com.expomo"
+	note.Sender = "com.apple.Safari" //Optionally, set a sender (Notification will now use the Safari icon)
+	note.AppIcon = "gopher.png"      //Optionally, an app icon (10.9+ ONLY)
+	note.ContentImage = "gopher.png" //Optionally, a content image (10.9+ ONLY)
+
+	err := note.Push()
+	if err != nil {
+		log.Println("Uh oh!")
 	}
 }
 
@@ -160,35 +299,12 @@ func main() {
 
 	f, err := tea.LogToFile("debug.log", "debug")
 	if err != nil {
-		log.Fatalf(`err:%w`, err)
+		log.Fatalln(`err:%w`, err)
 	}
 	defer f.Close()
 
 	p := tea.NewProgram(initModel(), tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		log.Fatal(err)
-	}
-}
-
-func notifyStopped() {
-
-	// THis is global
-	// notify.Push("OOO", "OOO", "", notificator.UR_NORMAL)
-
-
-	note := gosxnotifier.NewNotification("Check your Apple Stock!")
-
-	note.Title = "ExPomo"
-	note.Message = "🍅 Finished 🍅"
-	note.Sound = gosxnotifier.Funk
-	note.Sound = gosxnotifier.Hero 
-	note.Group = "com.expomo"
-	note.Sender = "com.apple.Safari" //Optionally, set a sender (Notification will now use the Safari icon)
-	note.AppIcon = "gopher.png"      //Optionally, an app icon (10.9+ ONLY)
-	note.ContentImage = "gopher.png" //Optionally, a content image (10.9+ ONLY)
-
-	err := note.Push()
-	if err != nil {
-		log.Println("Uh oh!")
 	}
 }
