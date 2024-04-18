@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/0xAX/notificator"
+	//"github.com/0xAX/notificator"
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/timer"
 	tea "github.com/charmbracelet/bubbletea"
@@ -14,13 +14,13 @@ import (
 )
 
 const (
-	pomodoroMinutes  = 25
-	breakMinutes     = 5
+	pomodoroMinutes  = 5
+	breakMinutes     = 2
 	longBreakMinutes = 20
 )
 const timeMultiplier = time.Second // For ease testing
 
-var notify *notificator.Notificator
+//var notify *notificator.Notificator
 
 type ScreenState int
 
@@ -60,7 +60,7 @@ func initModel() *model {
 }
 
 func (m model) Init() tea.Cmd {
-	return nil // textinput.Blink
+	return nil
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -97,10 +97,23 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 
 		case "p", "P":
-			return m, nil
+			m.screenState = Paused
+			return m, m.timer.Stop()
 
 		case "r", "R":
-			return m, nil
+			m.screenState = Paused
+			timeout := timeMultiplier
+			if m.pomodoroTimerType == WorkPomodoro {
+				timeout *= pomodoroMinutes
+			} else {
+				if m.actual%4 == 0 {
+					timeout *= longBreakMinutes
+				} else {
+					timeout *= breakMinutes
+				}
+			}
+			m.timer.Timeout = timeout
+			return m, m.timer.Stop()
 
 		case "enter":
 			if m.screenState == Entering {
@@ -119,8 +132,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		}
 	}
-	m.textFieldInput, cmd = m.textFieldInput.Update(msg)
 
+	m.textFieldInput, cmd = m.textFieldInput.Update(msg)
 	return m, cmd
 }
 
@@ -133,7 +146,11 @@ func handleTimerStoppedCmd(m model) (tea.Model, tea.Cmd) {
 	timeout := timeMultiplier
 	if m.pomodoroTimerType == WorkPomodoro {
 		m.pomodoroTimerType = BreakPomodoro
-		timeout *= breakMinutes
+		if m.actual%4 == 0 {
+			timeout *= longBreakMinutes
+		} else {
+			timeout *= breakMinutes
+		}
 	} else {
 		m.pomodoroTimerType = WorkPomodoro
 		timeout *= pomodoroMinutes
@@ -159,12 +176,13 @@ func handleStartCmd(m model) (tea.Model, tea.Cmd) {
 		m.screenState = Running
 		if wasTimerInitiated {
 			wasTimerInitiated = true
-			return m, m.timer.Toggle()
+			return m, m.timer.Start()
 		}
 		return m, m.timer.Init()
 
-	case Stopped:
-		return m, m.timer.Toggle()
+	case Paused, Stopped:
+		m.screenState = Running
+		return m, m.timer.Start()
 	}
 
 	return m, nil
@@ -189,13 +207,13 @@ func (m model) View() string {
 
 func getTitle(p PomodoroType) string {
 	title := ""
-	title += "---------------\n"
+	title += "---------------------\n"
 	if p == WorkPomodoro {
-		title += "Pomodoro Timer"
+		title += "🍅 Pomodoro Timer 🍅 "
 	} else {
-		title += "Take a Break"
+		title += "✅ Take a Break ✅"
 	}
-	title += "\n---------------\n\n"
+	title += "\n---------------------\n\n"
 	return title
 }
 
@@ -239,8 +257,13 @@ func renderRunningState(m model) string {
 func renderPausedState(m model) string {
 	s := getTitle(m.pomodoroTimerType)
 	s += m.timer.View()
+	s += " ⏸️ paused ⏸️"
+	if m.expected != 0 {
+		a := "\n\nActual: %d\nExpected:%d"
+		s += fmt.Sprintf(a, m.actual, m.expected)
+	}
 	s += getHelpText(m.screenState)
-	return fmt.Sprintf(s, m.expected, m.actual)
+	return s
 }
 
 func renderStoppedState(m model) string {
@@ -276,16 +299,13 @@ func notifyStopped() {
 	// THis is global
 	// notify.Push("OOO", "OOO", "", notificator.UR_NORMAL)
 
-	note := gosxnotifier.NewNotification("Check your Apple Stock!")
+	note := gosxnotifier.NewNotification("")
 
 	note.Title = "ExPomo"
-	note.Message = "🍅 Finished 🍅"
-	// note.Sound = gosxnotifier.Funk
+	note.Message = "🍅 ✅ - Finished"
+	note.Sound = gosxnotifier.Funk
 	note.Sound = gosxnotifier.Hero
 	note.Group = "com.expomo"
-	// note.Sender = "com.apple.Safari" //Optionally, set a sender (Notification will now use the Safari icon)
-	note.AppIcon = "gopher.png"      //Optionally, an app icon (10.9+ ONLY)
-	note.ContentImage = "gopher.png" //Optionally, a content image (10.9+ ONLY)
 
 	err := note.Push()
 	if err != nil {
@@ -294,10 +314,10 @@ func notifyStopped() {
 }
 
 func main() {
-	notify = notificator.New(notificator.Options{
-		DefaultIcon: "icon/default.png",
-		AppName:     "ExPom",
-	})
+	// notify = notificator.New(notificator.Options{
+	// 	DefaultIcon: "icon/default.png",
+	// 	AppName:     "ExPom",
+	// })
 
 	f, err := tea.LogToFile("debug.log", "debug")
 	if err != nil {
