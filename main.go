@@ -94,6 +94,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, m.textFieldInput.Cursor.BlinkCmd()
 
 		case "b", "B":
+			m.screenState = Initial
 			return m, nil
 
 		case "p", "P":
