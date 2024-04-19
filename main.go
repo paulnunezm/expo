@@ -14,11 +14,11 @@ import (
 )
 
 const (
-	pomodoroMinutes  = 5
-	breakMinutes     = 2
-	longBreakMinutes = 20
+	pomodoroMinutes  = 25
+	breakMinutes     = 5
+	longBreakMinutes = 15
 )
-const timeMultiplier = time.Second // For ease testing
+const timeMultiplier = time.Minute
 
 //var notify *notificator.Notificator
 
