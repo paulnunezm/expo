@@ -80,60 +80,84 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return handleTimerStoppedCmd(m)
 
 	case tea.KeyMsg:
-		switch msg.String() {
-
-		case "ctrl+c", "q":
-			return m, tea.Quit
-
-		case "s", "S":
-			return handleStartCmd(m)
-
-		case "e", "E":
-			m.screenState = Entering
-			m.textFieldInput.Focus()
-			return m, m.textFieldInput.Cursor.BlinkCmd()
-
-		case "b", "B":
-			m.screenState = Initial
-			return m, nil
-
-		case "p", "P":
-			m.screenState = Paused
-			return m, m.timer.Stop()
-
-		case "r", "R":
-			m.screenState = Paused
-			timeout := timeMultiplier
-			if m.pomodoroTimerType == WorkPomodoro {
-				timeout *= pomodoroMinutes
-			} else {
-				if m.actual%4 == 0 {
-					timeout *= longBreakMinutes
-				} else {
-					timeout *= breakMinutes
-				}
-			}
-			m.timer.Timeout = timeout
-			return m, m.timer.Stop()
-
-		case "enter":
-			if m.screenState == Entering {
-				num, err := strconv.Atoi(m.textFieldInput.Value())
-				if err != nil {
-					log.Printf("error converting %s", m.textFieldInput.Value())
-					return m, tea.Quit
-				}
-				m.expected = num
-
-				m.textFieldInput.Blur()
-				m.textFieldInput.Reset()
-				return handleStartCmd(m)
-			} else {
-				return m, nil
-			}
-		}
+		return handleKeyPressed(m, msg)
 	}
 
+	return m, cmd
+}
+
+func (m model) View() string {
+	s := ""
+	switch m.screenState {
+	case Initial:
+		s += renderInitialState(m)
+	case Paused:
+		s += renderPausedState(m)
+	case Running:
+		s += renderRunningState(m)
+	case Stopped:
+		s += renderStoppedState(m)
+	case Entering:
+		s += renderEnteringState(m)
+	}
+	return s
+}
+
+func handleKeyPressed(m model, msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+
+	switch msg.String() {
+
+	case "ctrl+c", "q":
+		return m, tea.Quit
+
+	case "s", "S":
+		return handleStartCmd(m)
+
+	case "e", "E":
+		m.screenState = Entering
+		m.textFieldInput.Focus()
+		return m, m.textFieldInput.Cursor.BlinkCmd() // TODO: check why is not working
+
+	case "b", "B":
+		m.screenState = Initial
+		return m, nil
+
+	case "p", "P":
+		m.screenState = Paused
+		return m, m.timer.Stop()
+
+	case "r", "R":
+		m.screenState = Paused
+		timeout := timeMultiplier
+		if m.pomodoroTimerType == WorkPomodoro {
+			timeout *= pomodoroMinutes
+		} else {
+			if m.actual%4 == 0 {
+				timeout *= longBreakMinutes
+			} else {
+				timeout *= breakMinutes
+			}
+		}
+		m.timer.Timeout = timeout
+		return m, m.timer.Stop()
+
+	case "enter":
+		if m.screenState == Entering {
+			num, err := strconv.Atoi(m.textFieldInput.Value())
+			if err != nil {
+				log.Printf("error converting %s", m.textFieldInput.Value())
+				return m, tea.Quit
+			}
+			m.expected = num
+
+			m.textFieldInput.Blur()
+			m.textFieldInput.Reset()
+			return handleStartCmd(m)
+		} else {
+			return m, nil
+		}
+	}
+	var cmd tea.Cmd
 	m.textFieldInput, cmd = m.textFieldInput.Update(msg)
 	return m, cmd
 }
@@ -189,26 +213,8 @@ func handleStartCmd(m model) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m model) View() string {
-	s := ""
-	switch m.screenState {
-	case Initial:
-		s += renderInitialState(m)
-	case Paused:
-		s += renderPausedState(m)
-	case Running:
-		s += renderRunningState(m)
-	case Stopped:
-		s += renderStoppedState(m)
-	case Entering:
-		s += renderEnteringState(m)
-	}
-	return s
-}
-
 func getTitle(p PomodoroType) string {
-	title := ""
-	title += "---------------------\n"
+	title := "---------------------\n"
 	if p == WorkPomodoro {
 		title += "🍅 Pomodoro Timer 🍅 "
 	} else {
